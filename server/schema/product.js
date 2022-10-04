@@ -4,16 +4,12 @@
 const mongoose = require('mongoose');
 
 //schema
-const productInfo = new mongoose.Schema({
-    name : String,
-    category : String,
-    price : Number
-})
-
 const prodSchema = new mongoose.Schema({
-    name : String,
-    category : Number,
-    price : Number,
+    productInfo : {
+        name : String,
+        category : String,
+        price : Number
+        },
     productId : Number,
     totalOrders : Number,
     rating : Number
