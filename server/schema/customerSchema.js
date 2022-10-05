@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 
 //schema
 const userInfo = new mongoose.Schema({
-    name : String,
+    firstName : String,
+    lastName : String,
     email : String,
     password : String
 })
@@ -24,10 +25,10 @@ const orderInfo = new mongoose.Schema({
 
 const customerSchema = new mongoose.Schema({
     userId : Number,
-    userInfo : {userInfo},
+    userInfo : userInfo,
     orderList : [{
-        billingInfo : {billingInfo},
-        orderInfo : {orderInfo},
+        billingInfo : billingInfo,
+        orderInfo : orderInfo,
     }]
 })
 

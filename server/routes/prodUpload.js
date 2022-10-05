@@ -2,7 +2,7 @@
 
 //imports
 const express = require('express');
-const model = require('../schema/product');
+const model = require('../schema/productSchema');
 let router = express.Router();
 
 
