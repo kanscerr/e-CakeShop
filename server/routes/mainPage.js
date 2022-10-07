@@ -12,4 +12,17 @@ router.post('/products', (req, res) => {
     })
 })
 
+router.post('/sort/category', (req, res) => {
+    if(req.body.category){
+        model.find({'productInfo.category' : req.body.category}, (err, data) => {
+            if(data){
+                res.send(data);
+            }
+            else{
+                res.json("Oops! Something went wrong");
+            }
+        })
+    }
+})
+
 module.exports = router;
