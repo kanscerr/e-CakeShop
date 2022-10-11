@@ -7,7 +7,6 @@ const prodModel = require('./server/schema/productSchema');
 const prodUpload = require('./server/routes/prodUpload');
 const customer = require('./server/routes/customer');
 const display = require('./server/routes/mainPage');
-const sort = require('./sort');
 
 const app = express();
 const PORT = 8080;

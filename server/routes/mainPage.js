@@ -25,4 +25,17 @@ router.post('/sort/category', (req, res) => {
     }
 })
 
+router.post('/search', (req, res) => {
+    if(req.body.search){
+        model.find({'productInfo.name' : req.body.search}, (err,data) =>{
+            if(data){
+                res.send(data);
+            }
+            else{
+                res.json('Oops! No item found');
+            }
+        })
+    }
+})
+
 module.exports = router;
