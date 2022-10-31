@@ -1,16 +1,24 @@
 {
   "name": "cake-e-shop",
   "version": "1.0.0",
-  "description": "",
+  "description": "An e-commerce (Online Cake Shop) where one can place orders and rate them. MongoDB is used for database. Two separate collections for product and for customer is made.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanscerr/e-CakeShop.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kanscerr/e-CakeShop/issues"
+  },
+  "homepage": "https://github.com/kanscerr/e-CakeShop#readme",
   "dependencies": {
-    "express": "^4.18.1",
-    "mongoose": "^6.6.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.7.0"
   }
 }
