@@ -7,6 +7,7 @@ const prodModel = require('./server/schema/productSchema');
 const prodUpload = require('./server/routes/prodUpload');
 const customer = require('./server/routes/customer');
 const display = require('./server/routes/mainPage');
+const order = require('./server/routes/order');
 
 const app = express();
 const PORT = 8080;
@@ -29,6 +30,16 @@ app.use("/customer", customer);
 //for main page
 app.use("/main", display);
 
+//for placing order
+app.use("/order", order);
+
+// app.use('/to', (req,res) => {
+//     res.redirect('/from');
+// })
+
+// app.post('/from', (req, res)=>{
+//     res.send('from');
+// })
 
 //server
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));

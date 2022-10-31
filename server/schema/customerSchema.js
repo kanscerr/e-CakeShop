@@ -13,23 +13,26 @@ const userInfo = new mongoose.Schema({
 
 const billingInfo = new mongoose.Schema({
     billingName : String,
+    billingContact : Number,
     billingAdd : String
 })
 
 const orderInfo = new mongoose.Schema({
-    productName : String,
+    productId : Number,
     quantity : Number,
     totalPrice : Number,
     rating : Number
 })
 
+const orderList = new mongoose.Schema({
+    orderInfo : orderInfo,
+    billingInfo : billingInfo 
+})
+
 const customerSchema = new mongoose.Schema({
     userId : Number,
     userInfo : userInfo,
-    orderList : [{
-        billingInfo : billingInfo,
-        orderInfo : orderInfo,
-    }]
+    orderList : [orderList]
 })
 
 //creating model
