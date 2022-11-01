@@ -45,6 +45,9 @@ router.post('/billing', (req, res) => {
             }
         })
     }
+    else{
+        res.send("error");
+    }
 })
 
 module.exports = router;
