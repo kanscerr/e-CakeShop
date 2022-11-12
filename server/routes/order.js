@@ -26,28 +26,70 @@ router.post('/orderInfo', (req, res) => {
     }
 })
 
-
+//billing information
 router.post('/billing', (req, res) => {
-    if(req.body.orderInfo && req.body.userId && req.body.billingName && req.body.billingAdd && req.body.billingContact){
-        //objects to be pushed
-        const billingInfo = {billingName : req.body.billingName, billingAdd : req.body.billingAdd, billingContact : req.body.billingContact,}
-        const orderList = {billingInfo : billingInfo, orderInfo : req.body.orderInfo}
+ 
+    const billingInfo = {billingName : req.body.billingInfo.billingName, billingAdd : req.body.billingInfo.billingAdd, billingContact : req.body.billingInfo.billingContact,}
+    const orderList = {billingInfo : billingInfo, orderInfo : req.body.orderInfo}
+
+    if(req.body.orderInfo && req.body.userId && req.body.billingInfo.billingName && req.body.billingInfo.billingAdd && req.body.billingInfo.billingContact){
+
         custModel.findOneAndUpdate({userId : req.body.userId}, 
-            {$push : 
-                {orderList : orderList}
-            }, 
+            {$push : {orderList : orderList}},
             (error, result) => {
             if(result){
-                res.send(result);
+                prodModel.findOneAndUpdate({productId : req.body.orderInfo.productId}, 
+                    {$inc : {totalOrders : 1}},
+                    (error, result) => {
+                    if(result){
+                        res.send(result);
+                    }
+                    else{
+                        res.send(error);
+                    }
+                })
             }
             else{
                 res.send(error);
             }
-        })
+        }
+    )
     }
     else{
         res.send("error");
     }
 })
 
+//rate order
+router.post('/rate', (req, res) => {
+    if(req.body.productId && req.body.rating){
+        prodModel.findOne({productId : req.body.productId}, (err, data) => {
+            if(data){
+                // res.send(data);
+                prodModel.findOneAndUpdate({productId : req.body.productId},
+                    {$set : {
+                        rating : Number(Math.round((req.body.rating/data.totalOrders)+"e"+1)+"e"+ -1)  //---requires total number of orders from prod collection---
+                    }},
+                    (error, result) => {
+                        if(result){
+                            res.send(result);
+                        }
+                        else{
+                            res.send(error);
+                        }
+                    }    
+                )
+            }
+            else{
+                res.send("oops! something went wrong!");
+            }
+        })
+    }
+})
+
 module.exports = router;
+
+
+
+
+    

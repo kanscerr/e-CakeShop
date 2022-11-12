@@ -1,9 +1,10 @@
-//---ROUTE FOR UPLOADING PRODUCT INFO IN DB
+//---ROUTE FOR UPLOADING PRODUCT INFO IN DB---
 
 //imports
 const express = require('express');
 const model = require('../schema/productSchema');
 let router = express.Router();
+
 
 
 //add data
@@ -20,6 +21,8 @@ router.post("/infoUpload", (req, res)=>{
                             'productInfo.name' : req.body.name,
                             'productInfo.category' : req.body.category,
                             'productInfo.price' : req.body.price,
+                            'totalOrders' : 0,
+                            'rating' : 0,
                             productId : data.productId+1
                         });
                         prodInfo.save();
@@ -30,6 +33,8 @@ router.post("/infoUpload", (req, res)=>{
                             'productInfo.name' : req.body.name,
                             'productInfo.category' : req.body.category,
                             'productInfo.price' : req.body.price,
+                            'totalOrders' : 0,
+                            'rating' : 0,
                             productId : 100
                         });
                         prodInfo.save();
@@ -40,7 +45,7 @@ router.post("/infoUpload", (req, res)=>{
         })   
     }
     else{
-        res.json('Not enough input');
+        res.send(req.body);
     }
 })
 
@@ -52,9 +57,9 @@ router.post("/infoUpdate", (req, res)=>{
             model.findOneAndUpdate({productId : req.body.productId},
             {$set: {'productInfo.price' : req.body.price}}, (error, result) =>{
                 if(result){
-                    model.find({productId : req.body.productId}, (err, res) => {
-                        if(yes){
-                            res.send(res);
+                    model.find({productId : req.body.productId}, (err, sol) => {
+                        if(sol){
+                            res.send(sol);
                         }
                         else{
                             res.json("no data");
@@ -63,6 +68,9 @@ router.post("/infoUpdate", (req, res)=>{
                 }
             })
         }}
+        else{
+            res.send('error');
+        }
     })
 })
 
